@@ -23,18 +23,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onKlickSave(view: View) {
-        pref.edit().putString("Name", edit_name.text.toString()).apply()
-
         val ageString =  edit_age.text.toString()
-        var age : Int = 0
-        if(ageString=="")
-            age = 0
-        else
+        var age : Int = -1
+        val name = edit_name.text.toString()
+
+        if(ageString!="")
             age = ageString.toInt()
 
-        pref.edit().putInt("Age",age).apply()
-
-        val intent = Intent(this, NoteListActivity::class.java)
-        startActivity(intent)
+        if(age >= 0 && name!="") {
+            pref.edit().putInt("Age",age).apply()
+            pref.edit().putString("Name", name).apply()
+            val intent = Intent(this, NoteListActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
